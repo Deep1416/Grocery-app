@@ -23,6 +23,7 @@ const EnjoyOurFreshGroceryItems = () => {
         const res = await fetch(url);
         const data = await res.json();
         setItems(data.items.slice(0, 3));
+        console.log(data.items.slice(0, 3));
         setIsLoading(false);
       } catch (error) {
         throw new Error("EnjoyFreshItems Fetch Failed", error);
@@ -81,6 +82,8 @@ const ItemsToggler = ({ alignment, setAlignment }) => {
         { id: 0, name: "Meat" },
         { id: 1, name: "Vegetables" },
         { id: 2, name: "Fruits" },
+        { id: 3, name: "Diary" },
+        { id: 4, name: "Grains" },
       ].map((category) => (
         <Button
           sx={{
