@@ -55,7 +55,7 @@ export const newProduct = [
         quantity: 1,
         unit: "kg",
         reviews: 4.7,
-        reviewCount: 21,
+        reviewCount: 26,
       },
       {
         name: "papaya",
@@ -84,7 +84,7 @@ export const newProduct = [
         img: "https://w7.pngwing.com/pngs/702/804/png-transparent-pomegranate-pomegranate-juice-fruit-pomegranate-natural-foods-frutti-di-bosco-food-thumbnail.png",
         id: 8,
         price: 1.99,
-        total: 1.99,
+        total: 0.99,
         quantity: 1,
         unit: "kg",
         reviews: 4.7,
