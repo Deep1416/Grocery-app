@@ -14,7 +14,7 @@ const Products = ({ categoryProducts }) => {
     // Get Products 
     useEffect(() => {
         const getData = async function () {
-            const allProductsUrl = 'https://api.npoint.io/bc3d1b1bc1a0fde36701';
+            const allProductsUrl = 'https://ecommerce-backend-yvgg.onrender.com/api/v1/data';
             const categoryProductsUrl = `https://api.npoint.io/bc3d1b1bc1a0fde36701/${categoryName === 'meat' ? 0
                 : categoryName === 'vegetables' ? 1
                     : categoryName === 'fruits' ? 2
@@ -24,15 +24,35 @@ const Products = ({ categoryProducts }) => {
             try {
                 const res = await fetch(categoryName ? categoryProductsUrl : allProductsUrl)
                 const data = await res.json();
+                console.log(data);
                 setProducts(categoryName ? data.items
-                    : data[0].items.concat(data[1].items, data[2].items, data[3].items, data[4].items))
+                    : data[0].items.concat(data[1].items, data[2].items, data[3].items, data[4].items , data[5].items , data[6].items , data[7].items , data[8].items , data[9].items))
                 setIsLoading(!isLoading)
             }
             catch (error) {
                 throw new Error('Products Fetch Failed', error)
             }
         }();
+    //     const dataPrduct = async () => {
+    //         try {
+    //             const response = await fetch("https://ecommerce-backend-yvgg.onrender.com/api/v1/data");
+                
+    //             if (!response.ok) {
+    //                 throw new Error(`HTTP error! status: ${response.status}`);
+    //             }
+                
+    //             const result = await response.json();
+    //             console.log(result);
+    //         } catch (error) {
+    //             console.error('Fetch error:', error);
+    //         }
+    //     };
+        
+    //     dataPrduct();
+        
     }, [])
+
+    
 
     return (
         <main className='min-h-screen space-y-5 pt-20 mb-9'>
