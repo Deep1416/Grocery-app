@@ -6,6 +6,7 @@ import OrderSummary from "./OrderSummary/OrderSummary";
 import CartItems from "./CartItems/CartItems";
 import { groceryContext } from "../Layout/Layout";
 import DeliveryForm from "./DeliveryForm/DeliveryForm";
+import { useSelector } from "react-redux";
 
 export const checkoutContext = createContext();
 const Cart = () => {
@@ -13,8 +14,9 @@ const Cart = () => {
     window.scroll({ top: 0 });
 
     // Get Cart Items from Context
-    const { cartItemsState } = useContext(groceryContext);
-    const [cartItems, setCartItems] = cartItemsState;
+    // const { cartItemsState } = useContext(groceryContext);
+    // const [cartItems, setCartItems] = cartItemsState;
+    const cartItems = useSelector((state) => state.cart.cartItems);
 
     const [isProceedToCheckout, setIsProceedToCheckout] = useState(false);
 

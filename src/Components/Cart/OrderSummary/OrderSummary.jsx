@@ -1,18 +1,19 @@
 import { Button, useMediaQuery } from '@mui/material';
-import { groceryContext } from '../../Layout/Layout';
 import { useContext } from 'react';
-import { checkoutContext } from '../Cart';
+import { checkoutContext } from '../Cart'; // Adjust path as per your file structure
+import { useSelector } from 'react-redux';
 
 const OrderSummary = () => {
-    // Get Cart Items from Context
-    const { cartItemsState } = useContext(groceryContext);
-    const [cartItems, setCartItems] = cartItemsState;
-    const [isProceedToCheckout, setIsProceedToCheckout] = useContext(checkoutContext);
+    const [isProceedToCheckout, setIsProceedToCheckout] = useContext(checkoutContext); // Assuming checkoutContext is correctly set up
 
     // Media Query
     const isMediumScreen = useMediaQuery('(max-width:1024px)');
 
-    const subtotal = Number.parseFloat(cartItems.reduce((total, item) => total + Number.parseFloat(item.total), 0));
+    // Get Cart Items from Redux state
+    const cartItems = useSelector((state) => state.cart.cartItems);
+
+    // Calculate subtotal
+    const subtotal = cartItems.reduce((total, item) => total + parseFloat(item.total), 0);
 
     return (
         <div className='flex justify-center md:pt-16 col md:col-span-4 lg:col-span-1'>
@@ -24,7 +25,7 @@ const OrderSummary = () => {
                 <table className='table-auto h-28 text-sm w-full'>
                     <tbody>
                         {/* Subtotal */}
-                        <tr className='font-medium lg:text-gray-800 text-gray-6000'>
+                        <tr className='font-medium lg:text-gray-800 text-gray-600'>
                             <td>Subtotal</td>
                             <td>$ {subtotal.toFixed(2)} USD</td>
                         </tr>
@@ -41,11 +42,15 @@ const OrderSummary = () => {
                     </tbody>
                 </table>
 
-                {/* Proceed to checkout */}
+                {/* Proceed to checkout Button */}
                 <Button
                     fullWidth
                     onClick={() => setIsProceedToCheckout(!isProceedToCheckout)}
-                    sx={{ textTransform: 'capitalize', transition: 'display 1000s ease-in-out', display: isProceedToCheckout ? 'none' : 'block' }}
+                    sx={{
+                        textTransform: 'capitalize',
+                        transition: 'opacity 0.3s ease-in-out',
+                        opacity: isProceedToCheckout ? 0 : 1,
+                    }}
                     variant='contained'
                     size={isMediumScreen ? 'small' : 'medium'}
                     color='success'>

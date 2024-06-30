@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import CartItemCard from "../CartItemCard/CartItemCard";
 import { groceryContext } from "../../Layout/Layout";
+import { useSelector } from "react-redux";
 
 const CartItems = () => {
   // Get Cart Items from Context
-  const { cartItemsState } = useContext(groceryContext);
-  const [cartItems, setCartItems] = cartItemsState;
+  // const { cartItemsState } = useContext(groceryContext);
+  // const [cartItems, setCartItems] = cartItemsState;
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   return (
     <div className="lg:space-y-10 space-y-5">

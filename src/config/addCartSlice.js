@@ -11,10 +11,12 @@ const addCartSlice = createSlice({
   reducers: {
     handleAddToCartBtn: (state, action) => {
       const product = action.payload;
-      const isTargetedProductAlreadyExist = state.cartItems.find(item => item.id === product.id);
+      const isTargetedProductAlreadyExist = state.cartItems.find(
+        (item) => item.id === product.id
+      );
 
       if (isTargetedProductAlreadyExist) {
-        const updatedCartItems = state.cartItems.map(item =>
+        const updatedCartItems = state.cartItems.map((item) =>
           item.id === product.id
             ? {
                 ...item,
@@ -39,8 +41,12 @@ const addCartSlice = createSlice({
     closeAlert: (state) => {
       state.openAlert = false;
     },
+    handleRemoveItem: (state, action) => {
+      const id = action.payload;
+      state.cartItems = state.cartItems.filter((item) => item.id !== id);
+    },
   },
 });
 
-export const { handleAddToCartBtn, closeAlert } = addCartSlice.actions;
+export const { handleAddToCartBtn, closeAlert, handleRemoveItem } = addCartSlice.actions;
 export default addCartSlice.reducer;
