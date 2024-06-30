@@ -27,6 +27,7 @@ import { groceryContext } from "../Layout/Layout";
 import { ShoppingCartRounded } from "@mui/icons-material";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import { useSelector } from "react-redux";
+import { auth } from "../../firebase/Firebasestore";
 
 // This function will add Go_back feature on the Navbar
 function ScrollTop(props) {
@@ -189,6 +190,8 @@ const Navbar = (props) => {
   const isExtraSmallScreen = useMediaQuery("(max-width: 664px)");
   const isSemiMediumScreen = useMediaQuery("(max-width: 900px)");
   const isLargeScreen = useMediaQuery("(max-width:1280px)");
+  const [alertMessage, setAlertMessage] = React.useState("");
+  const [alertSeverity, setAlertSeverity] = React.useState("success");
 
   // This function will change the navBar bg-color when user scrolls
   window.addEventListener("scroll", () => {
@@ -199,12 +202,23 @@ const Navbar = (props) => {
   }, []);
 
   const navigate = useNavigate();
-  // const { userLoggedInState } = React.useContext(groceryContext);
-  // const [isUserLoggedIn, setIsUserLoggedIn] = userLoggedInState;
-
   const [openAlert, setOpenAlert] = React.useState(false);
 
   // Log out button handler
+
+  const handleLogOut = async () => {
+    try {
+      await auth.signOut();
+      setAlertSeverity("success");
+      setAlertMessage("Log Out successfully");
+      setOpenAlert(true); // Show the alert
+      setTimeout(() => {
+        window.location.reload();
+      }, 400);
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   const { user } = useSelector((store) => store.User);
 
@@ -212,7 +226,8 @@ const Navbar = (props) => {
     <>
       <SuccessAlert
         state={[openAlert, setOpenAlert]}
-        massage={"Log out successfully"}
+        message={alertMessage}
+        severity={alertSeverity}
       />
 
       <nav className="fixed z-50">
@@ -303,7 +318,7 @@ const Navbar = (props) => {
                           // Log out Btn
                           <Button
                             size={isExtraSmallScreen ? "small" : "medium"}
-                            // onClick={handleLogOut}
+                            onClick={handleLogOut}
                             sx={{ textTransform: "capitalize" }}
                             color="success"
                             variant="contained"

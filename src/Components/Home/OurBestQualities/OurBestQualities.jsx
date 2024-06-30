@@ -19,18 +19,18 @@ const OurBestQualities = () => (
 // Our Best qualities SubComponent
 const OurQualities = () => {
     // Get Cart Items from Context
-    const { cartItemsState } = useContext(groceryContext);
-    const [cartItems, setCartItems] = cartItemsState;
-    const navigate = useNavigate()
-    const isUserLoggedIn = handleSessionStorage('get', 'userLoggedIn')
+    // const { cartItemsState } = useContext(groceryContext);
+    // const [cartItems, setCartItems] = cartItemsState;
+    // const navigate = useNavigate()
+    // const isUserLoggedIn = handleSessionStorage('get', 'userLoggedIn')
     // Media Query
     const isMediumScreen = useMediaQuery('(max-width: 1024px)');
 
     // Handle Order
-    const handleOrder = () => {
-        cartItems.length > 0 && isUserLoggedIn ?
-            navigate('/cart') : navigate('/products')
-    }
+    // const handleOrder = () => {
+    //     cartItems.length > 0 && isUserLoggedIn ?
+    //         navigate('/cart') : navigate('/products')
+    // }
 
     return (
         <div className='lg:space-y-6 sm:space-y-4 space-y-5'>
@@ -49,7 +49,7 @@ const OurQualities = () => {
 
             {/* Order_Now Btn */}
             <Button
-                onClick={handleOrder}
+                // onClick={handleOrder}
                 size={isMediumScreen ? 'medium' : 'large'}
                 sx={{ textTransform: 'capitalize' }}
                 variant='contained'
