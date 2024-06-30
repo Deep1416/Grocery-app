@@ -199,13 +199,12 @@ const Navbar = (props) => {
   }, []);
 
   const navigate = useNavigate();
-  const { userLoggedInState } = React.useContext(groceryContext);
-  const [isUserLoggedIn, setIsUserLoggedIn] = userLoggedInState;
+  // const { userLoggedInState } = React.useContext(groceryContext);
+  // const [isUserLoggedIn, setIsUserLoggedIn] = userLoggedInState;
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
   // Log out button handler
-  
 
   const { user } = useSelector((store) => store.User);
 
@@ -304,7 +303,7 @@ const Navbar = (props) => {
                           // Log out Btn
                           <Button
                             size={isExtraSmallScreen ? "small" : "medium"}
-                            onClick={handleLogOut}
+                            // onClick={handleLogOut}
                             sx={{ textTransform: "capitalize" }}
                             color="success"
                             variant="contained"
