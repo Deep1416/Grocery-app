@@ -32,24 +32,7 @@ const Products = ({ categoryProducts }) => {
             catch (error) {
                 throw new Error('Products Fetch Failed', error)
             }
-        }();
-    //     const dataPrduct = async () => {
-    //         try {
-    //             const response = await fetch("https://ecommerce-backend-yvgg.onrender.com/api/v1/data");
-                
-    //             if (!response.ok) {
-    //                 throw new Error(`HTTP error! status: ${response.status}`);
-    //             }
-                
-    //             const result = await response.json();
-    //             console.log(result);
-    //         } catch (error) {
-    //             console.error('Fetch error:', error);
-    //         }
-    //     };
-        
-    //     dataPrduct();
-        
+        }()
     }, [])
 
     

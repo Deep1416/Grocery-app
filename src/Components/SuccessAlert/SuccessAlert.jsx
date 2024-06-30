@@ -4,10 +4,8 @@ import { Check, Done } from "@mui/icons-material";
 
 const SuccessAlert = ({ massage, state }) => {
     const [open, setOpen] = state;
-
     // Handle close
     const handleClose = () => setOpen(!open)
-
     return (
         <Snackbar
             TransitionComponent={SlideTransition}

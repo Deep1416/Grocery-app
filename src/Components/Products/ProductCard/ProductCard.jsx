@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
     // Media Query
     const isMediumScreen = useMediaQuery('(min-width: 768px) and (max-width: 1024px)');
     const isSmallScreen = useMediaQuery('(max-width:768px)');
-
+    
     const [openAlert, setOpenAlert] = useState(false)
     const { cartItemsState } = useContext(groceryContext);
     const [cartItems, setCartItems] = cartItemsState;

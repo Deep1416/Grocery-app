@@ -1,4 +1,4 @@
-import { Password, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Alert,
   Button,
@@ -10,39 +10,34 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import animation from "../../../assets/animations/loginAnimation.gif";
-import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase/Firebasestore";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo } from "../../../config/userSlice";
-// import { store } from "../../../config/store";
+import animationRegister from "../../../assets/animations/Register.gif";
+import { useLocation, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./../../../firebase/Firebasestore";
 
-const Login = () => {
+const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { user } = useSelector((store) => store.User);
-  console.log(user);
-
+  const [isError, setIsError] = useState("");
+  // Scrolling Bug Fixed
   window.scroll({ top: 0 });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [isEmail, setIsEmail] = useState("");
-  const [isPassword, setIsPassword] = useState("");
-  const dispatch = useDispatch();
-  const handleSigIn = async () => {
+  // console.log(email + " " + password);
+  const handleRegister = async () => {
     try {
-      const isLogin = await signInWithEmailAndPassword(
+      const register = await createUserWithEmailAndPassword(
         auth,
-        isEmail,
-        isPassword
+        email,
+        password
       );
-      dispatch(getUserInfo(isLogin?.user?.uid));
-      navigate("/");
-      setIsEmail("");
-      setIsPassword("");
-
-      // console.log(isLogin.user.uid);
+      navigate("/login");
+      setEmail("");
+      setPassword("");
+      console.log(register);
     } catch (error) {
       console.log(error);
+      setIsError(error.message);
     }
   };
 
@@ -55,7 +50,7 @@ const Login = () => {
             <div className="col hidden md:flex items-center justify-center">
               <img
                 className="lg:max-h-80 max-h-[17rem]"
-                src={animation}
+                src={animationRegister}
                 alt="login"
               />
             </div>
@@ -65,29 +60,37 @@ const Login = () => {
                 <div className="lg:space-y-10 md:space-y-8 space-y-10">
                   {/* Form Title */}
                   <h3 className="text-center font-semibold text-gray-800 lg:text-3xl md:text-2xl text-3xl">
-                    Log In
+                    Register
                   </h3>
-                  <div className="text-center lg:space-y-7 md:space-y-6 space-y-7">
+                  <div className="text-center lg:space-y-7 md:space-y-6 space-y-7 ">
+                    <TextField
+                      label="Name"
+                      size="small"
+                      fullWidth
+                      color="success"
+                      variant="outlined"
+                    />
                     {/* Email */}
                     <TextField
+                      value={email}
                       label="Email"
                       size="small"
                       fullWidth
                       color="success"
                       variant="outlined"
-                      onChange={(e) => setIsEmail(e.target.value)}
-                      value={isEmail}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
+
                     {/* Password */}
                     <TextField
                       label="Password"
                       type={showPassword ? "text" : "password"}
                       fullWidth
                       size="small"
-                      onChange={(e) => setIsPassword(e.target.value)}
                       color="success"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
                       variant="outlined"
-                      value={isPassword}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
@@ -105,23 +108,24 @@ const Login = () => {
                         ),
                       }}
                     />
-
+                    {/* Submit-btn */}
+                    <p>{isError}</p>
                     <Button
                       sx={{ textTransform: "capitalize" }}
                       type="submit"
                       color="success"
                       variant="contained"
-                      onClick={handleSigIn}
+                      onClick={handleRegister}
                     >
-                      Log in
+                      Register
                     </Button>
                     <p>
-                      Create an account?{" "}
+                      Already have an account?{" "}
                       <span
                         className="text-green-700 cursor-pointer"
-                        onClick={() => navigate("/Register")}
+                        onClick={() => navigate("/login")}
                       >
-                        Sign Up
+                        Sign In
                       </span>
                     </p>
                   </div>
@@ -135,4 +139,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
