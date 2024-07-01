@@ -26,8 +26,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { groceryContext } from "../Layout/Layout";
 import { ShoppingCartRounded } from "@mui/icons-material";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../firebase/Firebasestore";
+import { getUserInfo } from "../../config/userSlice";
 
 // This function will add Go_back feature on the Navbar
 function ScrollTop(props) {
@@ -206,6 +207,9 @@ const Navbar = (props) => {
 
   // Log out button handler
 
+  // const { user } = useSelector((store) => store.User);
+  const dispatch = useDispatch();
+
   const handleLogOut = async () => {
     try {
       await auth.signOut();
@@ -213,7 +217,8 @@ const Navbar = (props) => {
       setAlertMessage("Log Out successfully");
       setOpenAlert(true); // Show the alert
       setTimeout(() => {
-        window.location.reload();
+        dispatch(getUserInfo(""));
+        navigate("/login");
       }, 400);
     } catch (error) {
       console.error("Error signing out:", error);

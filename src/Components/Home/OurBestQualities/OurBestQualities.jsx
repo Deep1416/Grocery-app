@@ -28,7 +28,7 @@ const OurQualities = () => {
   // Handle Order
   const handleOrder = () => {
     console.log("Handle Order Clicked"); // Debug log
-    if (cartItems.length > 0 && !user) {
+    if (cartItems?.length > 0 && user) {
       console.log("Navigating to Cart"); // Debug log
       navigate("/cart");
     } else {
