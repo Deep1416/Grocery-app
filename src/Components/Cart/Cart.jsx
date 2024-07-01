@@ -12,10 +12,6 @@ export const checkoutContext = createContext();
 const Cart = () => {
     // Scrolling Bug Fixed
     window.scroll({ top: 0 });
-
-    // Get Cart Items from Context
-    // const { cartItemsState } = useContext(groceryContext);
-    // const [cartItems, setCartItems] = cartItemsState;
     const cartItems = useSelector((state) => state.cart.cartItems);
 
     const [isProceedToCheckout, setIsProceedToCheckout] = useState(false);

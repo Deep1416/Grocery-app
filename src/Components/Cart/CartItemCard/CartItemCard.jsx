@@ -2,7 +2,6 @@ import { Button, Fade, IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Add, Remove } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-
 import PopUpDialog from "../../PopUpDialog/PopUpDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRemoveItem } from "../../../config/addCartSlice";

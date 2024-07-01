@@ -1,119 +1,107 @@
-import { Button, Fade, TextField } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { groceryContext } from '../../Layout/Layout';
-import { useContext, useState } from 'react';
-import GoBackButton from '../GoBackButton/GoBackButton';
-import { handleSessionStorage } from '../../../utils/utils';
-import PopUpDialog from '../../PopUpDialog/PopUpDialog';
-import { useNavigate } from 'react-router-dom';
+import { Button, Fade, TextField } from "@mui/material";
+import { useState } from "react";
+import GoBackButton from "../GoBackButton/GoBackButton";
+import PopUpDialog from "../../PopUpDialog/PopUpDialog";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { handleClearItem } from "../../../config/addCartSlice";
 
 const DeliveryForm = () => {
-    const { cartItemsState } = useContext(groceryContext);
-    const [cartItems, setCartItems] = cartItemsState;
-    const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const navigate = useNavigate();
+  const cartItems = useSelector((store) => store.cart.cartItems);
+  const dispatch = useDispatch();
+//   console.log(cartItems);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+  // Handle Dialog
+  const handleOK = () => {
+    // Reset the Cart_items
+    setOpenDialog(!openDialog);
+    setName("");
+    setEmail("");
+    setAddress("");
+    dispatch(handleClearItem());
+    navigate("/");
+  };
+  const hanldePalce = () => {
+    setOpenDialog(!openDialog);
+  };
+  console.log(name, email, address);
 
-    const navigate = useNavigate()
+  return (
+    <>
+      <PopUpDialog
+        open={openDialog}
+        message={"Order Placed successfully"}
+        handleOk={handleOK}
+        placeOrder={true}
+      />
+      <div className="md:mx-0 mx-auto space-y-4 max-w-[37rem]">
+        {/* Go back Btn */}
+        <GoBackButton />
+        <div className="space-y-9 lg:space-y-10 ">
+          {/* Title */}
+          <h1 className="lg:text-2xl text-xl font-semibold text-gray-600">
+            Complete Delivery Details
+          </h1>
 
-    // Handle PlaceOrder
-    const onSubmit = (data) => {
-        setOpenDialog(!openDialog)
-        // Setting DeliveryDetails in Storage
-        handleSessionStorage('set', 'deliveryDetails', data)
-    }
-    // Handle Dialog 
-    const handleOK = () => {
-        // Reset the Cart_items
-        handleSessionStorage('remove', 'cartItems')
-        setCartItems([])
-        setOpenDialog(!openDialog)
-        navigate('/')
-    }
+          {/* Delivery Form */}
+          <Fade in={true}>
+            <div className="lg:space-y-8  space-y-7">
+              {/* Full */}
+              <TextField
+                label="Full Name"
+                size="small"
+                fullWidth
+                color="success"
+                variant="outlined"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
 
-    return (
-        <>
-            <PopUpDialog
-                open={openDialog}
-                message={'Order Placed successfully'}
-                handleOk={handleOK}
-                placeOrder={true} />
-            <div className='md:mx-0 mx-auto space-y-4 max-w-[37rem]'>
-                {/* Go back Btn */}
-                <GoBackButton />
-                <div className='space-y-9 lg:space-y-10 '>
-                    {/* Title */}
-                    <h1 className='lg:text-2xl text-xl font-semibold text-gray-600'>
-                        Complete Delivery Details
-                    </h1>
+              {/* Email */}
+              <TextField
+                label="Email"
+                size="small"
+                fullWidth
+                color="success"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-                    {/* Delivery Form */}
-                    <Fade in={true}>
-                        <form action="post"
-                            className='lg:space-y-8  space-y-7'
-                            onSubmit={handleSubmit(onSubmit)} >
-                            {/* Full */}
-                            <TextField
-                                {...register('full_name', {
-                                    required: 'Name is required',
-                                })}
-                                defaultValue={'John Doe'}
-                                label='Full Name'
-                                size='small'
-                                error={errors.email ? true : false}
-                                helperText={errors.email ? errors.email.message : ''}
-                                fullWidth
-                                color='success'
-                                variant='outlined' />
+              {/* Address */}
+              <TextField
+                label="Address"
+                size="small"
+                fullWidth
+                placeholder="street, city, state"
+                color="success"
+                variant="outlined"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
 
-                            {/* Email */}
-                            <TextField
-                                {...register('email', {
-                                    required: 'Email is required',
-                                    pattern:
-                                    {
-                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: 'Invalid email address'
-                                    }
-                                })}
-                                defaultValue={'john@gmail.com'}
-                                label='Email'
-                                size='small'
-                                error={errors.email ? true : false}
-                                helperText={errors.email ? errors.email.message : ''}
-                                fullWidth
-                                color='success'
-                                variant='outlined' />
-
-                            {/* Address */}
-                            <TextField
-                                {...register('address', {
-                                    required: 'Address is required',
-                                })}
-                                defaultValue={'456 Street, fake town, New York'}
-                                label='Address'
-                                size='small'
-                                error={errors.address ? true : false}
-                                helperText={errors.address ? errors.address.message : ''}
-                                fullWidth
-                                placeholder='street, city, state'
-                                color='success'
-                                variant='outlined' />
-
-                            {/* Submit Button */}
-                            <Button type='submit'
-                                fullWidth
-                                variant='contained'
-                                sx={{ textTransform: 'capitalize' }}
-                                color='success'>
-                                Place Order
-                            </Button>
-                        </form>
-                    </Fade>
-                </div>
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ textTransform: "capitalize" }}
+                color="success"
+                onClick={hanldePalce}
+              >
+                Place Order
+              </Button>
             </div>
-        </>
-    );
+          </Fade>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default DeliveryForm;

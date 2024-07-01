@@ -15,7 +15,6 @@ class Link {
     }
 }
 
-
 const Footer = () => {
     // Media Query
     const isLargeScreen = useMediaQuery('(min-width:1024px)')

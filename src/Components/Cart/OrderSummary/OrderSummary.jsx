@@ -8,8 +8,7 @@ const OrderSummary = () => {
 
     // Media Query
     const isMediumScreen = useMediaQuery('(max-width:1024px)');
-
-    // Get Cart Items from Redux state
+ // Get Cart Items from Redux state
     const cartItems = useSelector((state) => state.cart.cartItems);
 
     // Calculate subtotal
