@@ -9,7 +9,8 @@ import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Fade from "@mui/material/Fade";
 // import logo_black from "../../assets/logo_black.png";
-import logo_black from "./../../assets/logo_black.png";
+// import logo_black from "./../../assets/logo_black.png";
+import logo from './../../assets/navbar/Logo_black.png'
 import {
   Button,
   Container,
@@ -268,7 +269,7 @@ const Navbar = (props) => {
                   <Link to={"/home"}>
                     <img
                       className="sm:max-h-6 max-h-5 my-auto cursor-pointer"
-                      src={logo_black}
+                      src={logo}
                       alt="grocery"
                     />
                   </Link>
