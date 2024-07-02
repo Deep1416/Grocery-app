@@ -28,13 +28,13 @@ function App() {
           <Route
             path="/categories/:categoryName"
             element={<Products categoryProducts={true} />}
-          /> 
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           {/* Protected Route  */}
-           <Route element={<ProtectedRoute />}>
-            <Route path="/cart" element={<Cart />} /> 
-          </Route> 
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<Cart />} />
+          </Route>
           <Route path="/*" element={<PageNotFound />} />
         </Route>
       </Routes>

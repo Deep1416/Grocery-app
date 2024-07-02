@@ -10,6 +10,8 @@ const addCartSlice = createSlice({
   initialState,
   reducers: {
     handleAddToCartBtn: (state, action) => {
+  
+      // console.log(state.cartItems + "action");
       const product = action.payload;
       const isTargetedProductAlreadyExist = state.cartItems.find(
         (item) => item.id === product.id

@@ -8,7 +8,7 @@ const CategoryCard = ({ category, shadow }) => {
 
   return (
     <CardActionArea
-      onClick={() => navigate(`/categories/${category.name.toLowerCase()}`)}
+      onClick={() => navigate(`/categories/${category.name}`)}
       sx={{
         maxWidth: "19rem",
         mx: "auto",

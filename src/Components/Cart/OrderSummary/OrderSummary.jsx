@@ -10,7 +10,7 @@ const OrderSummary = () => {
     const isMediumScreen = useMediaQuery('(max-width:1024px)');
  // Get Cart Items from Redux state
     const cartItems = useSelector((state) => state.cart.cartItems);
-
+    console.log(cartItems);
     // Calculate subtotal
     const subtotal = cartItems.reduce((total, item) => total + parseFloat(item.total), 0);
 

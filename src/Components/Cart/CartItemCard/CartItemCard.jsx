@@ -87,7 +87,7 @@ const QuantityController = ({ item }) => {
     productQuantity > 1 && setProductQuantity(productQuantity - 1);
   };
   const handleIncrement = () => {
-    setProductQuantity(productQuantity + 1);
+    setProductQuantity(productQuantity + 1);  
   };
 
   // Update Cart
