@@ -63,7 +63,7 @@ const ProductCard = ({ product }) => {
             <CardContent className="md:space-y-2 space-y-1.5 ">
               {/* Title */}
               <h3 className="md:text-xl lg:text-2xl text-xl text-gray-700 font-semibold text-center capitalize">
-                {name}
+                {name.slice(0 , 17)}
               </h3>
               <div className="md:space-y-1.5 space-y-2 lg:space-y-2">
                 <div className="flex justify-center space-x-5">
