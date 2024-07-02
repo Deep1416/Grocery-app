@@ -1,4 +1,4 @@
-![grocery_mockup](https://github.com/ahmod001/grocery/assets/121039395/f8ff25cb-4710-49f3-9ce8-712ec325200e)
+![grocery_mockup](https://grocery-app-sandy.vercel.app/)
 
 # Grocery -Landing page application
 
@@ -17,7 +17,7 @@ Welcome to the Grocery Application! This is a user-friendly and easy-to-use land
 
 To get started with the Grocery Application, follow these steps:
 
-1. Clone the repository: https://github.com/ahmod001/grocery.git
+1. Clone the repository: [https://github.com/Deep1416/Grocery-app]
 2. Install dependencies: `npm install`
 3. Start the application: `npm start`
 4. Access the application in your browser: `http://localhost:3000`
