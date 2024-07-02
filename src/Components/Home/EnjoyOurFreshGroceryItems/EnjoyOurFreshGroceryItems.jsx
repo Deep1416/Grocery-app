@@ -23,8 +23,8 @@ const EnjoyOurFreshGroceryItems = () => {
       try {
         const res = await fetch(url);
         const data = await res.json();
-        setItems(data.items.slice(0, 3));
-        console.log(data.items.slice(0, 3));
+        setItems(data[0].items.slice(0, 3));
+        console.log(data[0].items.slice(0, 3));
         setIsLoading(false);
       } catch (error) {
         throw new Error("EnjoyFreshItems Fetch Failed", error);
@@ -81,29 +81,27 @@ const ItemsToggler = ({ alignment, setAlignment }) => {
     <div className="space-x-3 md:space-x-5 text-center">
       {[
         // { id: 0, name: "Meat" },
-        { id: 0, name: "Meat", bgColor: "#FEF4EA" },
-        { id: 1, name: "Vegetables", bgColor: "#F5F5F5" },
-        { id: 2, name: "Fruits", bgColor: "#EAF5E3" },
-        { id: 3, name: "Dairy", bgColor: "#eaf4f4" },
-        { id: 4, name: "Grains", bgColor: "#FAF9D7" },
-        { id: 5, name: "Soft-Drinks", bgColor: "#E3E8E9" },
-        { id: 6, name: "Snacks", bgColor: "#ECFDF1" },
-        { id: 7, name: "Biscutes", bgColor: "#dcdbe9" },
-        { id: 8, name: "Dry-Fruits", bgColor: "#D3F4FB" },
-        { id: 9, name: "Masalas", bgColor: "#E6D7D5" },
+        { id: 0, name: "Meat" },
+        { id: 1, name: "Vegetables" },
+        { id: 2, name: "Fruits" },
+        { id: 3, name: "Dairy" },
+        { id: 4, name: "Grains" },
+        { id: 5, name: "Soft-Drinks" },
+        { id: 6, name: "Snacks" },
+        { id: 7, name: "Biscutes" },
+        { id: 8, name: "Dry-Fruits" },
+        { id: 9, name: "Masalas" },
       ].map((category) => (
         <Button
           sx={{
             textTransform: "capitalize",
             transition: "all 150ms ease-in-out",
           }}
-          size={
-            isExtraSmallScreen ? "small" : isLargeScreen ? "large" : "medium"
-          }
+          size={isExtraSmallScreen ? "small" : isLargeScreen ? "large" : "medium"}
           color="success"
-          variant={alignment === category.id ? "contained" : "text"}
+          variant={alignment === category.name ? "contained" : "text"}
           key={category.id}
-          onClick={(e) => setAlignment(category.name)}
+          onClick={() => setAlignment(category.name)}
           value={category.id}
         >
           {category.name}

@@ -12,8 +12,8 @@ const OrderSummary = () => {
     const cartItems = useSelector((state) => state.cart.cartItems);
     console.log(cartItems);
     // Calculate subtotal
-    const subtotal = cartItems.reduce((total, item) => total + parseFloat(item.total), 0);
-
+    const subtotal = cartItems.reduce((total, item) => total + (item.quantity * item.price), 0);
+    console.log(subtotal);
     return (
         <div className='flex justify-center md:pt-16 col md:col-span-4 lg:col-span-1'>
             <div className={`lg:space-y-4 sticky top-0 bottom-0 w-full max-w-[25rem] space-y-3`}>

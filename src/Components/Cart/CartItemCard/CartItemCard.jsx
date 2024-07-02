@@ -4,7 +4,7 @@ import { Add, Remove } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import PopUpDialog from "../../PopUpDialog/PopUpDialog";
 import { useDispatch, useSelector } from "react-redux";
-import { handleRemoveItem } from "../../../config/addCartSlice";
+import { handleAddToCartBtn, handleRemoveItem } from "../../../config/addCartSlice";
 
 const CartItemCard = ({ item }) => {
   const { id, name, img, quantity, unit, price, total } = item;
@@ -82,6 +82,8 @@ const CartItemCard = ({ item }) => {
 const QuantityController = ({ item }) => {
   const { unit, quantity, price, id } = item;
   const [productQuantity, setProductQuantity] = useState(quantity);
+  console.log(productQuantity);
+  const dispatch = useDispatch();
   // Event Handlers
   const handleReduce = () => {
     productQuantity > 1 && setProductQuantity(productQuantity - 1);
@@ -91,15 +93,17 @@ const QuantityController = ({ item }) => {
   };
 
   // Update Cart
-  useEffect(() => {
-    const updateCart = () => {
-      const updatedItem = {
-        ...item,
-        quantity: productQuantity,
-        total: (productQuantity * price).toFixed(2),
-      };
-      dispatch(handleAddToCartBtn(updatedItem)); // Dispatch action to update item in Redux store
+  const updateCart = () => {
+    const updatedItem = {
+      ...item,
+      quantity: productQuantity,
+      total: (productQuantity * price).toFixed(2),
     };
+    console.log(updateCart);
+    dispatch(handleAddToCartBtn(updatedItem)); // Dispatch action to update item in Redux store
+  };
+  useEffect(() => {
+    updateCart();
   }, [productQuantity]);
 
   return (

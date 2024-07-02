@@ -73,7 +73,7 @@ const ProductCard = ({ product }) => {
                   </span>
                   {/* Price */}
                   <span className="block text-sm md:text-xs lg:text-sm">
-                    $ {price} USD
+                    $ {price} 
                   </span>
                 </div>
 
