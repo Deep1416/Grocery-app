@@ -51,7 +51,7 @@ const CartItemCard = ({ item }) => {
             <div className="lg:space-y-1 md:space-y-0 sm:space-y-0.5">
               {/*Total Price */}
               <h3 className="font-semibold whitespace-nowrap sm:text-base text-sm text-green-600">
-                $ {total}
+              ₹ {total}
               </h3>
 
               {/* Remove-Item btn */}

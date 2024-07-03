@@ -26,17 +26,17 @@ const OrderSummary = () => {
                         {/* Subtotal */}
                         <tr className='font-medium lg:text-gray-800 text-gray-600'>
                             <td>Subtotal</td>
-                            <td>$ {subtotal.toFixed(2)} USD</td>
+                            <td>₹ {subtotal.toFixed(2)} </td>
                         </tr>
                         {/* Delivery Charge */}
                         <tr className='font-medium text-sm lg:text-gray-800 text-gray-600'>
                             <td>Delivery charge</td>
-                            <td>$ 5.99 USD</td>
+                            <td>₹ 5.99 </td>
                         </tr>
                         {/* Total */}
                         <tr className='lg:font-medium font-semibold lg:text-lg'>
                             <td>Total</td>
-                            <td style={{ color: 'green' }}>$ {(subtotal + 5.99).toFixed(2)} USD</td>
+                            <td style={{ color: 'green' }}>₹{(subtotal + 5.99).toFixed(2)} </td>
                         </tr>
                     </tbody>
                 </table>
