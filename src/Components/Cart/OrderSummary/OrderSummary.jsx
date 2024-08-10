@@ -4,20 +4,20 @@ import { checkoutContext } from "../Cart"; // Adjust path as per your file struc
 import { useSelector } from "react-redux";
 
 const OrderSummary = () => {
-  const [isProceedToCheckout, setIsProceedToCheckout] =
-    useContext(checkoutContext); // Assuming checkoutContext is correctly set up
+  const [isProceedToCheckout, setIsProceedToCheckout] = useContext(checkoutContext); 
 
   // Media Query
   const isMediumScreen = useMediaQuery("(max-width:1024px)");
+
   // Get Cart Items from Redux state
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
+
   // Calculate subtotal
   const subtotal = cartItems.reduce(
     (total, item) => total + item.quantity * item.price,
     0
   );
-  console.log(subtotal);
+
   return (
     <div className="flex justify-center md:pt-16 col md:col-span-4 lg:col-span-1">
       <div
@@ -70,5 +70,6 @@ const OrderSummary = () => {
     </div>
   );
 };
+
 
 export default OrderSummary;

@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import PopUpDialog from "../../PopUpDialog/PopUpDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { handleAddToCartBtn, handleRemoveItem } from "../../../config/addCartSlice";
-
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from "../../../firebase/Firebasestore";
 const CartItemCard = ({ item }) => {
   const { id, name, img, quantity, unit, price, total } = item;
-  const cartItems = useSelector((state) => state.cart.cartItems);
   const [openDialog, setOpenDialog] = useState(false);
   const dispatch = useDispatch();
   // Remove Item Handler
@@ -51,7 +51,7 @@ const CartItemCard = ({ item }) => {
             <div className="lg:space-y-1 md:space-y-0 sm:space-y-0.5">
               {/*Total Price */}
               <h3 className="font-semibold whitespace-nowrap sm:text-base text-sm text-green-600">
-              ₹ {total}
+              ₹ {price}
               </h3>
 
               {/* Remove-Item btn */}
@@ -82,51 +82,53 @@ const CartItemCard = ({ item }) => {
 const QuantityController = ({ item }) => {
   const { unit, quantity, price, id } = item;
   const [productQuantity, setProductQuantity] = useState(quantity);
-  console.log(productQuantity);
   const dispatch = useDispatch();
+
   // Event Handlers
   const handleReduce = () => {
-    productQuantity > 1 && setProductQuantity(productQuantity - 1);
+    if (productQuantity > 1) {
+      setProductQuantity(productQuantity - 1);
+    }
   };
+
   const handleIncrement = () => {
-    setProductQuantity(productQuantity + 1);  
+    setProductQuantity(productQuantity + 1);
   };
 
   // Update Cart
-  const updateCart = () => {
+  const updateCart = async () => {
     const updatedItem = {
       ...item,
       quantity: productQuantity,
       total: (productQuantity * price).toFixed(2),
     };
-    console.log(updateCart);
-    dispatch(handleAddToCartBtn(updatedItem)); // Dispatch action to update item in Redux store
+
+    // Dispatch action to update item in Redux store
+    dispatch(handleAddToCartBtn(updatedItem));
+
+  //   try {
+  //     // Assuming you want to update an existing document in Firestore
+  //     const docRef = doc(db, "users", id); // Make sure the document ID is correct
+  //     await updateDoc(docRef, updatedItem);
+  //     console.log("Document updated with ID: ", id);
+  //   } catch (e) {
+  //     console.error("Error updating document: ", e);
+  //   }
   };
+
   useEffect(() => {
     updateCart();
   }, [productQuantity]);
 
   return (
-    <div
-      className={
-        "flex items-center justify-center my-auto lg:space-x-2.5 sm:space-x-2 space-x-1.5"
-      }
-    >
+    <div className="flex items-center justify-center my-auto lg:space-x-2.5 sm:space-x-2 space-x-1.5">
       {/* Reduce Quantity */}
-      <IconButton
-        size={"small"}
-        disabled={productQuantity < 2}
-        onClick={handleReduce}
-      >
+      <IconButton size="small" disabled={productQuantity < 2} onClick={handleReduce}>
         <Remove fontSize="inherit" />
       </IconButton>
 
       {/* Current Quantity*/}
-      <h1
-        className={
-          "my-auto lg:text-xl lg:font-medium font-semibold text-gray-700 whitespace-nowrap"
-        }
-      >
+      <h1 className="my-auto lg:text-xl lg:font-medium font-semibold text-gray-700 whitespace-nowrap">
         {productQuantity}
         <span className="lg:text-sm text-xs"> {unit}</span>
       </h1>
@@ -138,5 +140,7 @@ const QuantityController = ({ item }) => {
     </div>
   );
 };
+
+
 
 export default CartItemCard;
