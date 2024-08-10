@@ -66,7 +66,7 @@ const Products = ({ categoryProducts }) => {
       }
     })();
   }, []);
-  console.log(products);
+  // console.log(products);
 
   return (
     <main className="min-h-screen space-y-5 pt-20 mb-9">

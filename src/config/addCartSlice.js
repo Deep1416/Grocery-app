@@ -10,34 +10,30 @@ const addCartSlice = createSlice({
   initialState,
   reducers: {
     handleAddToCartBtn: (state, action) => {
-  
-      // console.log(state.cartItems + "action");
       const product = action.payload;
       const isTargetedProductAlreadyExist = state.cartItems.find(
         (item) => item.id === product.id
       );
-
+    
       if (isTargetedProductAlreadyExist) {
         const updatedCartItems = state.cartItems.map((item) =>
           item.id === product.id
             ? {
                 ...item,
-                quantity: item.quantity + 1,
-                total: ((item.quantity + 1) * item.price).toFixed(2),
+                quantity: product.quantity, // Update the quantity to match the payload
+                total: (product.quantity * item.price).toFixed(2), // Recalculate the total
               }
             : item
         );
-
         state.cartItems = updatedCartItems;
       } else {
         const newProduct = {
           ...product,
-          quantity: 1,
-          total: product.price.toFixed(2),
+          total: (product.quantity * product.price).toFixed(2), // Calculate the total based on payload quantity
         };
         state.cartItems.push(newProduct);
       }
-
+    
       state.openAlert = true;
     },
     closeAlert: (state) => {
